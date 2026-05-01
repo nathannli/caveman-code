@@ -63,7 +63,7 @@ export {
 	sanitizeOneLine,
 	tailPath,
 } from "./components/StatusLine.js";
-// Subagent observability overlay (Hermes pattern, F2)
+// Subagent observability overlay (F2)
 export {
 	formatElapsed,
 	NULL_SUBAGENT_REGISTRY,

@@ -3,16 +3,6 @@
  * `~/.cave/agents/<name>.md` (user) and parses their Claude Code-compatible
  * frontmatter into `SubagentDef` records.
  *
- * Provenance:
- *   - Pi-check found `pi-coding-agent`'s `examples/extensions/subagent/agents.ts`
- *     which already does directory discovery + frontmatter parsing for a
- *     reduced agent shape (name + description + tools + model + body). This
- *     file extends that pattern with the full WS6 frontmatter superset
- *     (isolation, mcpServers, hooks, maxTurns, skills, effort, background,
- *     disallowedTools).
- *   - Discovery pattern mirrors WS5's skills/commands loaders so users
- *     experience consistent location semantics.
- *
  * Discovery (in order; later entries override earlier on name collision):
  *   1. Bundled defaults: `<package>/agents/*.md` (this repo's defaults)
  *   2. User scope:       `~/.cave/agents/*.md`

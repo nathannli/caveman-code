@@ -2,15 +2,6 @@
  * `Task` built-in tool — fan-out subagent orchestration with parallel + chain
  * modes and worktree isolation.
  *
- * Provenance:
- *   - Borrowed from pi-code's `examples/extensions/subagent/index.ts`
- *     (vendored shape: spawn-cave-as-subprocess, JSON-mode parsing, parallel
- *     concurrency limit). Extended for WS6 with:
- *       * `.cave/agents/<name>.md` discovery (loader.ts)
- *       * `isolation: worktree` via `git worktree add .cave/worktrees/<id>`
- *       * 7 parallel cap (Claude Code parity)
- *       * structured `SubagentResult` envelope
- *
  * Modes (exactly one must be set per call):
  *   - single   { agent, task }                  → run one agent
  *   - parallel { tasks: [{agent, task}] }       → fan out, concurrency-limited

@@ -1,13 +1,6 @@
 /**
  * Slash commands — built-in registry plus Claude Code-compatible markdown loader.
  *
- * Provenance:
- *   The built-in registry below was carried over from pi-code (cave's upstream).
- *   The markdown loader in this file is new for cave WS5 and is modeled on
- *   Claude Code v2.1.119's commands schema. A user pasting
- *   `~/.claude/commands/foo.md` into `~/.cave/commands/foo.md` works
- *   unchanged (frontmatter is a strict superset).
- *
  * Discovery
  *   - Project: `.cave/commands/*.md` (relative to cwd)
  *   - User:    `~/.cave/commands/*.md`
