@@ -148,6 +148,10 @@ export function supportsXhigh<TApi extends Api>(model: Model<TApi>): boolean {
 		return true;
 	}
 
+	if (model.thinkingLevelMap?.xhigh !== undefined && model.thinkingLevelMap.xhigh !== null) {
+		return true;
+	}
+
 	if (getAnthropicCapabilities(model.id, model.provider).xhighEffort) {
 		return true;
 	}
