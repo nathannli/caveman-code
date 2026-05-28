@@ -413,6 +413,15 @@ function buildParams(model: Model<"openai-completions">, context: Context, optio
 		(params as any).enable_thinking = !!options?.reasoningEffort;
 	} else if (compat.thinkingFormat === "qwen-chat-template" && model.reasoning) {
 		(params as any).chat_template_kwargs = { enable_thinking: !!options?.reasoningEffort };
+	} else if (compat.thinkingFormat === "deepseek" && model.reasoning) {
+		(params as any).thinking = { type: options?.reasoningEffort ? "enabled" : "disabled" };
+		if (options?.reasoningEffort) {
+			const effort = model.thinkingLevelMap?.[options.reasoningEffort] ??
+				mapReasoningEffort(options.reasoningEffort, compat.reasoningEffortMap);
+			if (effort !== null) {
+				(params as any).reasoning_effort = effort;
+			}
+		}
 	} else if (compat.thinkingFormat === "openrouter" && model.reasoning) {
 		// OpenRouter normalizes reasoning across providers via a nested reasoning object.
 		const openRouterParams = params as typeof params & { reasoning?: { effort?: string } };
@@ -804,6 +813,7 @@ function detectCompat(model: Model<"openai-completions">): Required<OpenAIComple
 	const baseUrl = model.baseUrl;
 
 	const isZai = provider === "zai" || baseUrl.includes("api.z.ai");
+	const isDeepSeek = provider === "deepseek" || baseUrl.includes("deepseek.com");
 
 	const isNonStandard =
 		provider === "cerebras" ||
@@ -811,7 +821,7 @@ function detectCompat(model: Model<"openai-completions">): Required<OpenAIComple
 		provider === "xai" ||
 		baseUrl.includes("api.x.ai") ||
 		baseUrl.includes("chutes.ai") ||
-		baseUrl.includes("deepseek.com") ||
+		isDeepSeek ||
 		isZai ||
 		provider === "opencode" ||
 		baseUrl.includes("opencode.ai");
@@ -843,9 +853,11 @@ function detectCompat(model: Model<"openai-completions">): Required<OpenAIComple
 		requiresThinkingAsText: false,
 		thinkingFormat: isZai
 			? "zai"
-			: provider === "openrouter" || baseUrl.includes("openrouter.ai")
-				? "openrouter"
-				: "openai",
+			: isDeepSeek
+				? "deepseek"
+				: provider === "openrouter" || baseUrl.includes("openrouter.ai")
+					? "openrouter"
+					: "openai",
 		openRouterRouting: {},
 		vercelGatewayRouting: {},
 		zaiToolStream: false,

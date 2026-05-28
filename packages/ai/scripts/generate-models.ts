@@ -3,7 +3,7 @@
 import { writeFileSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import type { Api, KnownProvider, Model } from "../src/types.js";
+import type { Api, KnownProvider, Model, OpenAICompletionsCompat } from "../src/types.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -915,6 +915,66 @@ async function generateModels() {
 		});
 	}
 
+	const deepseekCompat: OpenAICompletionsCompat = {
+		requiresReasoningContentOnAssistantMessages: true,
+		thinkingFormat: "deepseek",
+	};
+	const deepseekV4Models: Model<"openai-completions">[] = [
+		{
+			id: "deepseek-v4-flash",
+			name: "DeepSeek V4 Flash",
+			api: "openai-completions",
+			baseUrl: "https://api.deepseek.com",
+			provider: "deepseek",
+			reasoning: true,
+			thinkingLevelMap: { minimal: null, low: null, medium: null, high: "high", xhigh: "max" },
+			input: ["text"],
+			cost: {
+				input: 0.14,
+				output: 0.28,
+				cacheRead: 0.0028,
+				cacheWrite: 0,
+			},
+			contextWindow: 1000000,
+			maxTokens: 384000,
+			compat: deepseekCompat,
+		},
+		{
+			id: "deepseek-v4-pro",
+			name: "DeepSeek V4 Pro",
+			api: "openai-completions",
+			baseUrl: "https://api.deepseek.com",
+			provider: "deepseek",
+			reasoning: true,
+			thinkingLevelMap: { minimal: null, low: null, medium: null, high: "high", xhigh: "max" },
+			input: ["text"],
+			cost: {
+				input: 0.435,
+				output: 0.87,
+				cacheRead: 0.003625,
+				cacheWrite: 0,
+			},
+			contextWindow: 1000000,
+			maxTokens: 384000,
+			compat: deepseekCompat,
+		},
+	];
+	allModels.push(...deepseekV4Models);
+
+	for (const candidate of allModels) {
+		if (candidate.api === "openai-completions" && candidate.id.includes("deepseek-v4")) {
+			candidate.compat = {
+				...candidate.compat,
+				...(candidate.provider === "openrouter"
+					? {
+							requiresReasoningContentOnAssistantMessages:
+								deepseekCompat.requiresReasoningContentOnAssistantMessages,
+						}
+					: deepseekCompat),
+			};
+		}
+	}
+
 	const minimaxDirectSupportedIds = new Set(["MiniMax-M2.7", "MiniMax-M2.7-highspeed"]);
 
 	for (const candidate of allModels) {
@@ -1037,7 +1097,7 @@ async function generateModels() {
 			reasoning: true,
 			input: ["text", "image"],
 			cost: { input: 5, output: 30, cacheRead: 0.5, cacheWrite: 0 },
-			contextWindow: 1050000,
+			contextWindow: CODEX_CONTEXT,
 			maxTokens: CODEX_MAX_TOKENS,
 		},
 		{
@@ -1561,6 +1621,9 @@ export const MODELS = {
 `;
 			}
 			output += `\t\t\treasoning: ${model.reasoning},\n`;
+			if (model.thinkingLevelMap) {
+				output += `\t\t\tthinkingLevelMap: ${JSON.stringify(model.thinkingLevelMap)},\n`;
+			}
 			output += `\t\t\tinput: [${model.input.map((i) => `"${i}"`).join(", ")}],\n`;
 			output += `\t\t\tcost: {\n`;
 			output += `\t\t\t\tinput: ${model.cost.input},\n`;
