@@ -636,6 +636,13 @@ export function convertMessages(
 					(assistantMsg as any).reasoning_details = reasoningDetails;
 				}
 			}
+			if (
+				compat.requiresReasoningContentOnAssistantMessages &&
+				model.reasoning &&
+				(assistantMsg as { reasoning_content?: string }).reasoning_content === undefined
+			) {
+				(assistantMsg as { reasoning_content?: string }).reasoning_content = "";
+			}
 			// Skip assistant messages that have no content and no tool calls.
 			// Some providers require "either content or tool_calls, but not none".
 			// Other providers also don't accept empty assistant messages.
@@ -851,6 +858,7 @@ function detectCompat(model: Model<"openai-completions">): Required<OpenAIComple
 		requiresToolResultName: false,
 		requiresAssistantAfterToolResult: false,
 		requiresThinkingAsText: false,
+		requiresReasoningContentOnAssistantMessages: isDeepSeek,
 		thinkingFormat: isZai
 			? "zai"
 			: isDeepSeek
@@ -884,6 +892,9 @@ function getCompat(model: Model<"openai-completions">): Required<OpenAICompletio
 		requiresAssistantAfterToolResult:
 			model.compat.requiresAssistantAfterToolResult ?? detected.requiresAssistantAfterToolResult,
 		requiresThinkingAsText: model.compat.requiresThinkingAsText ?? detected.requiresThinkingAsText,
+		requiresReasoningContentOnAssistantMessages:
+			model.compat.requiresReasoningContentOnAssistantMessages ??
+			detected.requiresReasoningContentOnAssistantMessages,
 		thinkingFormat: model.compat.thinkingFormat ?? detected.thinkingFormat,
 		openRouterRouting: model.compat.openRouterRouting ?? {},
 		vercelGatewayRouting: model.compat.vercelGatewayRouting ?? detected.vercelGatewayRouting,
