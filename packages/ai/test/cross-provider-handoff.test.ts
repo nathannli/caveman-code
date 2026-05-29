@@ -65,7 +65,7 @@ const PROVIDER_MODEL_PAIRS: ProviderModelPair[] = [
 	{ provider: "openai", model: "gpt-5-mini", label: "openai-responses-gpt-5-mini" },
 	{ provider: "azure-openai-responses", model: "gpt-4o-mini", label: "azure-openai-responses-gpt-4o-mini" },
 	// OpenAI Codex
-	{ provider: "openai-codex", model: "gpt-5.2-codex", label: "openai-codex-gpt-5.2-codex" },
+	{ provider: "openai-codex", model: "gpt-5.3-codex", label: "openai-codex-gpt-5.3-codex" },
 	// Google Antigravity
 	{ provider: "google-antigravity", model: "gemini-3-flash", label: "antigravity-gemini-3-flash" },
 	{ provider: "google-antigravity", model: "claude-sonnet-4-5", label: "antigravity-claude-sonnet-4-5" },
@@ -99,7 +99,7 @@ const PROVIDER_MODEL_PAIRS: ProviderModelPair[] = [
 	{ provider: "opencode", model: "claude-sonnet-4-5", label: "zen-claude-sonnet-4-5" },
 	{ provider: "opencode", model: "gemini-3-flash", label: "zen-gemini-3-flash" },
 	{ provider: "opencode", model: "glm-4.7-free", label: "zen-glm-4.7-free" },
-	{ provider: "opencode", model: "gpt-5.2-codex", label: "zen-gpt-5.2-codex" },
+	{ provider: "opencode", model: "gpt-5.3-codex", label: "zen-gpt-5.3-codex" },
 	{ provider: "opencode", model: "minimax-m2.1-free", label: "zen-minimax-m2.1-free" },
 	// OpenCode Go
 	{ provider: "opencode-go", model: "kimi-k2.5", label: "go-kimi-k2.5" },

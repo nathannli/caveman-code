@@ -37,7 +37,7 @@ const LOREM_IPSUM = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Se
 // Generate a string that will exceed the context window
 // Using chars/4 as token estimate (works better with varied text than repeated chars)
 function generateOverflowContent(contextWindow: number): string {
-	const targetTokens = contextWindow + 10000; // Exceed by 10k tokens
+	const targetTokens = contextWindow + 1000000; // Exceed by 1 million tokens
 	const targetChars = targetTokens * 4 * 1.5;
 	const repetitions = Math.ceil(targetChars / LOREM_IPSUM.length);
 	return LOREM_IPSUM.repeat(repetitions);
@@ -285,9 +285,9 @@ describe("Context overflow error handling", () => {
 
 	describe("OpenAI Codex (OAuth)", () => {
 		it.skipIf(!openaiCodexToken)(
-			"gpt-5.2-codex - should detect overflow via isContextOverflow",
+			"gpt-5.3-codex - should detect overflow via isContextOverflow",
 			async () => {
-				const model = getModel("openai-codex", "gpt-5.2-codex");
+				const model = getModel("openai-codex", "gpt-5.3-codex");
 				const result = await testContextOverflow(model, openaiCodexToken!);
 				logResult(result);
 
