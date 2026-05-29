@@ -53,6 +53,7 @@ Unified LLM API with automatic model discovery, provider configuration, token an
 - **Anthropic**
 - **Google**
 - **Vertex AI** (Gemini via Vertex AI)
+- **DeepSeek**
 - **Mistral**
 - **Groq**
 - **Cerebras**
@@ -1028,6 +1029,7 @@ In Node.js environments, you can set environment variables to avoid passing API 
 | zAI | `ZAI_API_KEY` |
 | MiniMax | `MINIMAX_API_KEY` |
 | OpenCode Zen / OpenCode Go | `OPENCODE_API_KEY` |
+| DeepSeek | `DEEPSEEK_API_KEY` |
 | Kimi For Coding | `KIMI_API_KEY` |
 | GitHub Copilot | `COPILOT_GITHUB_TOKEN` or `GH_TOKEN` or `GITHUB_TOKEN` |
 
@@ -1212,6 +1214,8 @@ const response = await complete(model, {
 ```
 
 ### Provider Notes
+
+**DeepSeek**: Set `DEEPSEEK_API_KEY`. Uses the `openai-completions` API (`https://api.deepseek.com`). Both `deepseek-v4-flash` and `deepseek-v4-pro` support reasoning; pass `reasoning: 'high'` or `'xhigh'` via `streamSimple`/`completeSimple`, or set `reasoningEffort` directly. DeepSeek uses its own thinking wire format (`thinking: { type: "enabled" }`), which the library handles automatically.
 
 **OpenAI Codex**: Requires a ChatGPT Plus or Pro subscription. Provides access to GPT-5.x Codex models with extended context windows and reasoning capabilities. The library automatically handles session-based prompt caching when `sessionId` is provided in stream options. You can set `transport` in stream options to `"sse"`, `"websocket"`, or `"auto"` for Codex Responses transport selection. When using WebSocket with a `sessionId`, connections are reused per session and expire after 5 minutes of inactivity.
 
