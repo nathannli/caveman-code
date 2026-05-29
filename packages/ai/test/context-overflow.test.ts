@@ -367,6 +367,22 @@ describe("Context overflow error handling", () => {
 	});
 
 	// =============================================================================
+	// DeepSeek
+	// Uses OpenAI-compatible API
+	// =============================================================================
+
+	describe.skipIf(!process.env.DEEPSEEK_API_KEY)("DeepSeek", () => {
+		it("deepseek-v4-flash - should detect overflow via isContextOverflow", async () => {
+			const model = getModel("deepseek", "deepseek-v4-flash");
+			const result = await testContextOverflow(model, process.env.DEEPSEEK_API_KEY!);
+			logResult(result);
+
+			expect(result.stopReason).toBe("error");
+			expect(isContextOverflow(result.response, model.contextWindow)).toBe(true);
+		}, 120000);
+	});
+
+	// =============================================================================
 	// Hugging Face
 	// Uses OpenAI-compatible Inference Router
 	// =============================================================================
