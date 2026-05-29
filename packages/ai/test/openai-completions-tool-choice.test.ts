@@ -200,6 +200,38 @@ describe("openai-completions tool_choice", () => {
 		expect(params.reasoning_effort).toBe("medium");
 	});
 
+	it("honors DeepSeek null reasoning_effort mappings", async () => {
+		const model = getModel("deepseek", "deepseek-v4-pro")!;
+		let payload: unknown;
+
+		await streamSimple(
+			model,
+			{
+				messages: [
+					{
+						role: "user",
+						content: "Hi",
+						timestamp: Date.now(),
+					},
+				],
+			},
+			{
+				apiKey: "test",
+				reasoning: "medium",
+				onPayload: (params: unknown) => {
+					payload = params;
+				},
+			},
+		).result();
+
+		const params = (payload ?? mockState.lastParams) as {
+			reasoning_effort?: string;
+			thinking?: { type?: string };
+		};
+		expect(params.thinking).toEqual({ type: "enabled" });
+		expect(params.reasoning_effort).toBeUndefined();
+	});
+
 	it("enables tool_stream for supported z.ai models with tools", async () => {
 		const model = getModel("zai", "glm-4.7")!;
 		const tools: Tool[] = [

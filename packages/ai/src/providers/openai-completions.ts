@@ -416,10 +416,12 @@ function buildParams(model: Model<"openai-completions">, context: Context, optio
 	} else if (compat.thinkingFormat === "deepseek" && model.reasoning) {
 		(params as any).thinking = { type: options?.reasoningEffort ? "enabled" : "disabled" };
 		if (options?.reasoningEffort) {
-			const effort =
-				model.thinkingLevelMap?.[options.reasoningEffort] ??
-				mapReasoningEffort(options.reasoningEffort, compat.reasoningEffortMap);
-			if (effort !== null) {
+			const levelMap = model.thinkingLevelMap;
+			const hasLevelMapping = levelMap !== undefined && Object.hasOwn(levelMap, options.reasoningEffort);
+			const effort = hasLevelMapping
+				? levelMap[options.reasoningEffort]
+				: mapReasoningEffort(options.reasoningEffort, compat.reasoningEffortMap);
+			if (effort !== null && effort !== undefined) {
 				(params as any).reasoning_effort = effort;
 			}
 		}
