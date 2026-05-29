@@ -6118,6 +6118,7 @@ export const MODELS = {
 			api: "openai-completions",
 			provider: "opencode",
 			baseUrl: "https://opencode.ai/zen/v1",
+			compat: {"requiresReasoningContentOnAssistantMessages":true,"thinkingFormat":"deepseek"},
 			reasoning: true,
 			input: ["text"],
 			cost: {
@@ -6630,6 +6631,7 @@ export const MODELS = {
 			api: "openai-completions",
 			provider: "opencode-go",
 			baseUrl: "https://opencode.ai/zen/go/v1",
+			compat: {"requiresReasoningContentOnAssistantMessages":true,"thinkingFormat":"deepseek"},
 			reasoning: true,
 			input: ["text"],
 			cost: {
@@ -6647,6 +6649,7 @@ export const MODELS = {
 			api: "openai-completions",
 			provider: "opencode-go",
 			baseUrl: "https://opencode.ai/zen/go/v1",
+			compat: {"requiresReasoningContentOnAssistantMessages":true,"thinkingFormat":"deepseek"},
 			reasoning: true,
 			input: ["text"],
 			cost: {
@@ -7550,6 +7553,7 @@ export const MODELS = {
 			api: "openai-completions",
 			provider: "openrouter",
 			baseUrl: "https://openrouter.ai/api/v1",
+			compat: {"requiresReasoningContentOnAssistantMessages":true},
 			reasoning: true,
 			input: ["text"],
 			cost: {
@@ -7567,6 +7571,7 @@ export const MODELS = {
 			api: "openai-completions",
 			provider: "openrouter",
 			baseUrl: "https://openrouter.ai/api/v1",
+			compat: {"requiresReasoningContentOnAssistantMessages":true},
 			reasoning: true,
 			input: ["text"],
 			cost: {
@@ -7584,6 +7589,7 @@ export const MODELS = {
 			api: "openai-completions",
 			provider: "openrouter",
 			baseUrl: "https://openrouter.ai/api/v1",
+			compat: {"requiresReasoningContentOnAssistantMessages":true},
 			reasoning: true,
 			input: ["text"],
 			cost: {
