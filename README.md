@@ -1,5 +1,8 @@
-## Use this local checkout instead of the global npm install
+## This is a forked version of julius's caveman-code
+### additional features
+- This forked version of `caveman-code` includes DeepSeek, `gpt-5.5` via OpenAI Codex, and `xhigh` reasoning.
 
+### install method
 From this repo root:
 
 ```bash
@@ -11,7 +14,6 @@ npm link
 
 This links the global `caveman` and `caveman-code` binaries to this local checkout.
 
-This forked version of `caveman-code` includes DeepSeek, `gpt-5.5` via OpenAI Codex, and `xhigh` reasoning.
 
 Verify:
 
