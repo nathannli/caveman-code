@@ -23,12 +23,6 @@ npm ls -g --depth=0 --link=true
 caveman --version
 ```
 
-If your shell still resolves the old binary:
-
-```bash
-hash -r
-```
-
 To undo and return to the published npm package:
 
 ```bash
