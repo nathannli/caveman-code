@@ -1,3 +1,41 @@
+## Use this local checkout instead of the global npm install
+
+From this repo root:
+
+```bash
+npm install
+npm run build
+cd packages/coding-agent
+npm link
+```
+
+This links the global `caveman` and `caveman-code` binaries to this local checkout.
+
+This forked version of `caveman-code` includes DeepSeek, `gpt-5.5` via OpenAI Codex, and `xhigh` reasoning.
+
+Verify:
+
+```bash
+which caveman
+npm ls -g --depth=0 --link=true
+caveman --version
+```
+
+If your shell still resolves the old binary:
+
+```bash
+hash -r
+```
+
+To undo and return to the published npm package:
+
+```bash
+npm unlink -g @juliusbrussee/caveman-code
+npm install -g @juliusbrussee/caveman-code
+```
+
+---
+
 <div align="center">
 
 # 🪨 Caveman Code
