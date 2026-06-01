@@ -1,4 +1,6 @@
 ## This is a forked version of julius's caveman-code
+- waiting on approval to add these features on https://github.com/JuliusBrussee/caveman-code/issues/24
+
 ### additional features
 - This forked version of `caveman-code` includes DeepSeek, `gpt-5.5` via OpenAI Codex, and `xhigh` reasoning.
 
