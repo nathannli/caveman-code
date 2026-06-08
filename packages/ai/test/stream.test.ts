@@ -1118,8 +1118,8 @@ describe("Generate E2E Tests", () => {
 		});
 	});
 
-	describe("OpenAI Codex Provider (gpt-5.3-codex)", () => {
-		const llm = getModel("openai-codex", "gpt-5.3-codex");
+	describe("OpenAI Codex Provider (gpt-5.4-mini)", () => {
+		const llm = getModel("openai-codex", "gpt-5.4-mini");
 
 		it.skipIf(!openaiCodexToken)("should complete basic text generation", { retry: 3 }, async () => {
 			await basicTextGeneration(llm, { apiKey: openaiCodexToken });
@@ -1146,8 +1146,8 @@ describe("Generate E2E Tests", () => {
 		});
 	});
 
-	describe("OpenAI Codex Provider (gpt-5.3-codex)", () => {
-		const llm = getModel("openai-codex", "gpt-5.3-codex");
+	describe("OpenAI Codex Provider (gpt-5.4-mini)", () => {
+		const llm = getModel("openai-codex", "gpt-5.4-mini");
 
 		it.skipIf(!openaiCodexToken)("should complete basic text generation", { retry: 3 }, async () => {
 			await basicTextGeneration(llm, { apiKey: openaiCodexToken });
@@ -1175,7 +1175,7 @@ describe("Generate E2E Tests", () => {
 	});
 
 	describe("OpenAI Codex Provider (gpt-5.3-codex via WebSocket)", () => {
-		const llm = getModel("openai-codex", "gpt-5.3-codex");
+		const llm = getModel("openai-codex", "gpt-5.4-mini");
 		const wsOptions = { apiKey: openaiCodexToken, transport: "websocket" as const };
 
 		it.skipIf(!openaiCodexToken)("should complete basic text generation", { retry: 3 }, async () => {
