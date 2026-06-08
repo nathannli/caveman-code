@@ -1077,7 +1077,7 @@ async function generateModels() {
 		},
 		{
 			id: "gpt-5.4-mini",
-			name: "GPT-5.4 mini",
+			name: "GPT-5.4 Mini",
 			api: "openai-codex-responses",
 			provider: "openai-codex",
 			baseUrl: CODEX_BASE_URL,
